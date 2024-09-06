@@ -1,0 +1,98 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "user1",
+      "password": "MÃ HÓA BCRYPT",
+      "email": "user1@gmail.com",
+      "role": 1,
+      "profilePicture": "https://picture.com/images/user1.jpg",
+      "status": 0
+    },
+    {
+      "id": 2,
+      "username": "user2",
+      "password": "MÃ HÓA BCRYPT",
+      "email": "user2@gmail.com",
+      "role": 1,
+      "profilePicture": "https://picture.com/images/user2.jpg",
+      "status": 0
+    }
+  ],
+  "courses": [
+    {
+      "id": 1,
+      "title": "Khóa luyện thi đại học",
+      "description": "Khóa luyện thi cho học sinh chuẩn bị thi đại học"
+    },
+    {
+      "id": 2,
+      "title": "Khóa luyện thi THPT",
+      "description": "Khóa học dành cho học sinh 10, 11, 12"
+    }
+  ],
+  "examSubjects": [
+    {
+      "id": 1,
+      "title": "Môn Toán",
+      "description": "Luyện thi đại học Toán học",
+      "courseId": 1
+    },
+    {
+      "id": 2,
+      "title": "Vật lý lớp 11",
+      "description": "Luyện thi Vật lý lớp 11",
+      "courseId": 2
+    }
+  ],
+  "exams": [
+    {
+      "id": 1,
+      "title": "Đề thi Toán học THPT Chuyên Lam Sơn Thanh Hóa",
+      "description": "Đề thi Toán Học năm 2023",
+      "duration": 90,
+      "examSubjectId": 1
+    },
+    {
+      "id": 2,
+      "title": "Đề thi Vật lý cơ bản lớp 11",
+      "description": "Đề thi gồm các câu hỏi cơ bản về Vật lý 11",
+      "duration": 60,
+      "examSubjectId": 2
+    }
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "question": "phương trình có nghiệm X =? X2-2X+1=0",
+      "examId": 1,
+      "options": ["0", "1", "2", "3"],
+      "answer": "1"
+    },
+    {
+      "id": 2,
+      "question": "Định lý Pythagore áp dụng cho loại tam giác nào?",
+      "examId": 2,
+      "options": ["Tam giác vuông", "Tam giác đều"]
+    }
+  ],
+  "userAnswers": [
+    {
+      "id": 1,
+      "userId": 1,
+      "examId": 1,
+      "score": 15
+    },
+    {
+      "id": 2,
+      "userId": 2,
+      "examId": 2,
+      "score": 8
+    }
+  ],
+  "admin": {
+    "id": 1,
+    "accountName": "admin@gmail.com",
+    "accountPassword": "111"
+  }
+}
