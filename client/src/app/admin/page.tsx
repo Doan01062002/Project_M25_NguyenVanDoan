@@ -1,19 +1,34 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
-import "../../styles/styleAdmin/home.css";
+import React, { useEffect, useState } from "react";
+import "../../styles/styleAdmin/dashboard.css";
+import Nav_Main from "../../components/component_admin/Nav_Main";
+import Nav_Right from "../../components/component_admin/Nav_Right";
+import { setCheckAdmin } from "../../util";
+import Manager_User from "../../components/component_admin/Manager_User";
 import { useDispatch } from "react-redux";
+import { getAdmin } from "../../services/accountAdmin.service";
 import { useRouter } from "next/navigation";
-import { getAdmin } from "@/services/accountAdmin.service";
-import { setCheckAdmin } from "@/util";
+import {
+  BookOutlined,
+  HomeOutlined,
+  LogoutOutlined,
+  MailOutlined,
+  SettingOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
+import AdminCourse from "@/components/component_admin/adminCourse";
 
-export default function Page() {
-  const sidebarRef = useRef<HTMLDivElement | null>(null);
-  const menuBarRef = useRef<HTMLDivElement | null>(null);
-  const searchButtonRef = useRef<HTMLButtonElement | null>(null);
-  const searchFormRef = useRef<HTMLFormElement | null>(null);
-  const searchButtonIconRef = useRef<HTMLElement | null>(null);
-  const switchModeRef = useRef<HTMLInputElement | null>(null);
+const Dashboard: React.FC = () => {
+  const [showMain, setShowMain] = useState<string>("dashboard");
+  const [activeItem, setActiveItem] = useState<string>("dashboard");
+  // Active
+  const toggleSidebar = (show: boolean): void => {
+    const sideMenu = document.querySelector("aside");
+    if (sideMenu) {
+      sideMenu.style.display = show ? "block" : "none";
+    }
+  };
 
   // Logout
 
@@ -30,321 +45,97 @@ export default function Page() {
     route.push("/loginAdmin");
   };
 
-  // Hiển thị chuyển động
-
-  useEffect(() => {
-    const allSideMenu = document.querySelectorAll(
-      "#sidebar .side-menu.top li a"
-    );
-
-    allSideMenu.forEach((item) => {
-      const li = item.parentElement;
-
-      item.addEventListener("click", function () {
-        allSideMenu.forEach((i: any) => {
-          i.parentElement.classList.remove("active");
-        });
-        li?.classList.add("active");
-      });
-    });
-
-    const toggleSidebar = () => {
-      sidebarRef.current?.classList.toggle("hide");
-    };
-
-    menuBarRef.current?.addEventListener("click", toggleSidebar);
-
-    const handleSearchButtonClick = (e: Event) => {
-      if (window.innerWidth < 576) {
-        e.preventDefault();
-        searchFormRef.current?.classList.toggle("show");
-        if (searchFormRef.current?.classList.contains("show")) {
-          searchButtonIconRef.current?.classList.replace("bx-search", "bx-x");
-        } else {
-          searchButtonIconRef.current?.classList.replace("bx-x", "bx-search");
-        }
-      }
-    };
-
-    searchButtonRef.current?.addEventListener("click", handleSearchButtonClick);
-
-    const handleResize = () => {
-      if (window.innerWidth > 576) {
-        searchButtonIconRef.current?.classList.replace("bx-x", "bx-search");
-        searchFormRef.current?.classList.remove("show");
-      }
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    if (window.innerWidth < 768) {
-      sidebarRef.current?.classList.add("hide");
-    }
-
-    const handleSwitchModeChange = () => {
-      if (switchModeRef.current?.checked) {
-        document.body.classList.add("dark");
-      } else {
-        document.body.classList.remove("dark");
-      }
-    };
-
-    switchModeRef.current?.addEventListener("change", handleSwitchModeChange);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-      menuBarRef.current?.removeEventListener("click", toggleSidebar);
-      searchButtonRef.current?.removeEventListener(
-        "click",
-        handleSearchButtonClick
-      );
-      switchModeRef.current?.removeEventListener(
-        "change",
-        handleSwitchModeChange
-      );
-    };
-  }, []);
+  const handleItemClick = (item: string) => {
+    setShowMain(item);
+    setActiveItem(item);
+  };
 
   return (
     <>
-      <meta charSet="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <link
-        href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css"
-        rel="stylesheet"
-      />
-      <title>AdminHub</title>
-      <section id="sidebar" ref={sidebarRef}>
-        <a href="#" className="brand">
-          <i className="bx bxs-smile" />
-          <span className="text">AdminHub</span>
-        </a>
-        <ul className="side-menu top">
-          <li className="active">
-            <a href="#">
-              <i className="bx bxs-dashboard" />
-              <span className="text">Dashboard</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <i className="bx bxs-shopping-bag-alt" />
-              <span className="text">My Store</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <i className="bx bxs-doughnut-chart" />
-              <span className="text">Analytics</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <i className="bx bxs-message-dots" />
-              <span className="text">Message</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <i className="bx bxs-group" />
-              <span className="text">Team</span>
-            </a>
-          </li>
-        </ul>
-        <ul className="side-menu">
-          <li>
-            <a href="#">
-              <i className="bx bxs-cog" />
-              <span className="text">Settings</span>
-            </a>
-          </li>
-          <li onClick={handleLogout}>
-            <a href="#" className="logout">
-              <i className="bx bxs-log-out-circle" />
-              <span className="text">Logout</span>
-            </a>
-          </li>
-        </ul>
-      </section>
-
-      <section id="content">
-        <nav>
-          <i className="bx bx-menu" ref={menuBarRef} />
-          <a href="#" className="nav-link">
-            Categories
-          </a>
-          <form action="#" ref={searchFormRef}>
-            <div className="form-input">
-              <input type="search" placeholder="Search..." />
-              <button
-                type="submit"
-                className="search-btn"
-                ref={searchButtonRef}
-              >
-                <i className="bx bx-search" ref={searchButtonIconRef} />
-              </button>
+      <div className="containers">
+        <aside>
+          <div className="top">
+            <div className="logo">
+              <img
+                src="https://firebasestorage.googleapis.com/v0/b/project-f6c67.appspot.com/o/imagesAdmin%2Flogo.png?alt=media&token=018c46b8-3e94-4fbd-a405-f0283e15a92e"
+                alt="Logo"
+              />
+              <h2>
+                VN<span className="danger">SN</span>
+              </h2>
             </div>
-          </form>
-          <input type="checkbox" id="switch-mode" hidden ref={switchModeRef} />
-          <label htmlFor="switch-mode" className="switch-mode" />
-          <a href="#" className="notification">
-            <i className="bx bxs-bell" />
-            <span className="num">8</span>
-          </a>
-          <a href="#" className="profile">
-            <img src="img/people.png" />
-          </a>
-        </nav>
-
-        <main>
-          <div className="head-title">
-            <div className="left">
-              <h1>Dashboard</h1>
-              <ul className="breadcrumb">
-                <li>
-                  <a href="#">Dashboard</a>
-                </li>
-                <li>
-                  <i className="bx bx-chevron-right" />
-                </li>
-                <li>
-                  <a className="active" href="#">
-                    Home
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <a href="#" className="btn-download">
-              <i className="bx bxs-cloud-download" />
-              <span className="text">Download PDF</span>
-            </a>
-          </div>
-
-          <ul className="box-info">
-            <li>
-              <i className="bx bxs-calendar-check" />
-              <span className="text">
-                <h3>1020</h3>
-                <p>New Order</p>
-              </span>
-            </li>
-            <li>
-              <i className="bx bxs-group" />
-              <span className="text">
-                <h3>2834</h3>
-                <p>Visitors</p>
-              </span>
-            </li>
-            <li>
-              <i className="bx bxs-dollar-circle" />
-              <span className="text">
-                <h3>$2543</h3>
-                <p>Total Sales</p>
-              </span>
-            </li>
-          </ul>
-
-          <div className="table-data">
-            <div className="order">
-              <div className="head">
-                <h3>Recent Orders</h3>
-                <i className="bx bx-search" />
-                <i className="bx bx-filter" />
-              </div>
-              <table>
-                <thead>
-                  <tr>
-                    <th>User</th>
-                    <th>Date Order</th>
-                    <th>Status</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>
-                      <img src="img/people.png" />
-                      <p>John Doe</p>
-                    </td>
-                    <td>01-10-2021</td>
-                    <td>
-                      <span className="status completed">Completed</span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <img src="img/people.png" />
-                      <p>John Doe</p>
-                    </td>
-                    <td>01-10-2021</td>
-                    <td>
-                      <span className="status pending">Pending</span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <img src="img/people.png" />
-                      <p>John Doe</p>
-                    </td>
-                    <td>01-10-2021</td>
-                    <td>
-                      <span className="status process">Process</span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <img src="img/people.png" />
-                      <p>John Doe</p>
-                    </td>
-                    <td>01-10-2021</td>
-                    <td>
-                      <span className="status pending">Pending</span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <img src="img/people.png" />
-                      <p>John Doe</p>
-                    </td>
-                    <td>01-10-2021</td>
-                    <td>
-                      <span className="status completed">Completed</span>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div className="todo">
-              <div className="head">
-                <h3>Todos</h3>
-                <i className="bx bx-plus" />
-                <i className="bx bx-filter" />
-              </div>
-              <ul className="todo-list">
-                <li className="completed">
-                  <p>Todo List</p>
-                  <i className="bx bx-dots-vertical-rounded" />
-                </li>
-                <li className="completed">
-                  <p>Todo List</p>
-                  <i className="bx bx-dots-vertical-rounded" />
-                </li>
-                <li className="not-completed">
-                  <p>Todo List</p>
-                  <i className="bx bx-dots-vertical-rounded" />
-                </li>
-                <li className="completed">
-                  <p>Todo List</p>
-                  <i className="bx bx-dots-vertical-rounded" />
-                </li>
-                <li className="not-completed">
-                  <p>Todo List</p>
-                  <i className="bx bx-dots-vertical-rounded" />
-                </li>
-              </ul>
+            <div
+              className="close"
+              id="close-btn"
+              onClick={() => toggleSidebar(false)}
+            >
+              <span className="material-icons-sharp">close</span>
             </div>
           </div>
-        </main>
-      </section>
+          <div className="sidebar">
+            <a
+              onClick={() => handleItemClick("dashboard")}
+              href="#"
+              className={activeItem === "dashboard" ? "active" : ""}
+            >
+              <HomeOutlined />
+              <h3>Dashboard</h3>
+            </a>
+            <br />
+            <a
+              onClick={() => handleItemClick("managerUser")}
+              href="#"
+              className={activeItem === "managerUser" ? "active" : ""}
+            >
+              <UserOutlined />
+              <h3>Users</h3>
+            </a>
+            <br />
+            <a
+              onClick={() => handleItemClick("managerCourse")}
+              href="#"
+              className={activeItem === "managerCourse" ? "active" : ""}
+            >
+              <BookOutlined />
+              <h3>Courses</h3>
+            </a>
+            <br />
+            <a
+              onClick={() => handleItemClick("messages")}
+              href="#"
+              className={activeItem === "messages" ? "active" : ""}
+            >
+              <MailOutlined />
+              <h3>Messages</h3>
+              <span className="message-count">26</span>
+            </a>
+            <br />
+            <a
+              onClick={() => handleItemClick("settings")}
+              href="#"
+              className={activeItem === "settings" ? "active" : ""}
+            >
+              <SettingOutlined />
+              <h3>Settings</h3>
+            </a>
+
+            <a
+              href="#"
+              onClick={handleLogout}
+              className={activeItem === "logout" ? "active" : ""}
+            >
+              <LogoutOutlined />
+              <h3>Logout</h3>
+            </a>
+          </div>
+        </aside>
+        {showMain === "dashboard" ? <Nav_Main></Nav_Main> : ""}
+        {showMain === "managerUser" ? <Manager_User></Manager_User> : ""}
+        {showMain === "managerCourse" ? <AdminCourse></AdminCourse> : ""}
+        <Nav_Right></Nav_Right>
+      </div>
     </>
   );
-}
+};
+
+export default Dashboard;

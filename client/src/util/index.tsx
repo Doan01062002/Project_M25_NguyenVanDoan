@@ -1,4 +1,4 @@
-import { AccountAdmin } from "@/interface";
+import { AccountAdmin } from "@/interface/admin";
 
 //Admin
 export const setCheckAdmin = () => {

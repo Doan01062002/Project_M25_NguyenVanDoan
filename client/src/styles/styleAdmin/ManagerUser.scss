@@ -1,0 +1,284 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  border: none;
+  outline: none;
+  font-family: "Noto Sans", sans-serif;
+}
+
+#root {
+  display: flex;
+}
+
+// Main content
+.main-content {
+  position: relative;
+  background: #ebe9e9;
+  width: 850px;
+  padding: 1rem;
+  .header-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    background: #fff;
+    border-radius: 10px;
+    padding: 10px 2rem;
+    margin-bottom: 1rem;
+    img {
+      width: 50px;
+      height: 50px;
+      cursor: pointer;
+      border-radius: 50%;
+    }
+    .header-title {
+      color: rgba(113, 99, 186, 255);
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      h2 {
+        font-weight: bold;
+        font-size: 22px;
+      }
+    }
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      .search-box {
+        background: rgb(237, 237, 237);
+        border-radius: 15px;
+        color: rgba(113, 99, 186, 255);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 4px;
+        input {
+          background: transparent;
+          padding: 10px;
+        }
+        i {
+          font-size: 1.2rem;
+          cursor: pointer;
+          transition: all 0.5s ease-out;
+        }
+        i:hover {
+          transform: scale((1.2));
+        }
+      }
+    }
+  }
+
+  .card-container {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .main-title {
+      color: rgba(113, 99, 186, 255);
+      padding-bottom: 10px;
+      font-size: 15px;
+      font-weight: bold;
+    }
+    .card-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      align-items: center;
+      .payment-card {
+        background: rgb(229, 223, 223);
+        border-radius: 10px;
+        padding: 1.2rem;
+        width: 285px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        transition: all 0.5s ease-in-out;
+        // Màu scss
+        &.light-red {
+          background: rgb(251, 233, 233);
+        }
+
+        &.light-purple {
+          background: rgb(242, 226, 254);
+        }
+
+        &.light-green {
+          background: rgb(224, 235, 231);
+        }
+
+        &.light-blue {
+          background: rgb(238, 236, 254);
+        }
+        &:hover {
+          transform: translateY(-5px);
+        }
+        .card-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 20px;
+          .amount {
+            display: flex;
+            flex-direction: column;
+            .title {
+              font-size: 12px;
+              font-weight: 200;
+            }
+            .amount-value {
+              font-size: 24px;
+              font-weight: 600;
+            }
+          }
+          i {
+            color: #fff;
+            padding: 1rem;
+            height: 60px;
+            width: 60px;
+            text-align: center;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            background: red;
+            &.dark-red {
+              background: red;
+            }
+
+            &.dark-purple {
+              background: purple;
+            }
+
+            &.dark-green {
+              background: green;
+            }
+
+            &.dark-blue {
+              background: blue;
+            }
+          }
+        }
+        .card-detail {
+          font-size: 18px;
+          color: #777777;
+          letter-spacing: 2px;
+        }
+      }
+    }
+  }
+  .table-wrapper {
+    background: #fff;
+    margin-top: 1rem;
+    border-radius: 10px;
+    padding: 2rem;
+    .title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .table-container {
+      width: 100%;
+      table,
+      th,
+      td {
+        border-collapse: collapse;
+        border: 1px solid black;
+      }
+      table {
+        width: 100%;
+        thead {
+          background: rgba(113, 90, 186, 255);
+          color: #fff;
+          th {
+            padding: 15px;
+            text-align: left;
+            input {
+              width: 100%;
+            }
+          }
+        }
+        tbody {
+          background: #f2f2f2;
+          tr {
+            &:nth-child(even) {
+              background: #fff;
+            }
+          }
+          td {
+            padding: 15px;
+            font-size: 14px;
+            color: #333;
+            img {
+              width: 40px;
+              height: 40px;
+              border-radius: 50%;
+            }
+            input {
+              width: 100%;
+            }
+          }
+        }
+      }
+    }
+    .statistical {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .pagination {
+        width: 30%;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        .button {
+          display: flex;
+          gap: 10px;
+          button {
+            width: 40px;
+            height: 30px;
+            border: 0.5px solid black;
+          }
+        }
+      }
+    }
+  }
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin: 20px 0;
+
+  button {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.3s, color 0.3s, border 0.3s;
+
+    &:hover {
+      background: #f0f0f0;
+      border-color: #ccc;
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+
+    &.active {
+      background: #6c757d;
+      color: #fff;
+      border-color: #6c757d;
+    }
+  }
+}

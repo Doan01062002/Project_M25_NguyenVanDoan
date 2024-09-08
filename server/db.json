@@ -1,93 +1,450 @@
 {
-  "users": [
+  "course": [
     {
       "id": 1,
-      "username": "user1",
-      "password": "MÃ HÓA BCRYPT",
-      "email": "user1@gmail.com",
-      "role": 1,
-      "profilePicture": "https://picture.com/images/user1.jpg",
-      "status": 0
+      "nameCourse": "Khóa luyện thi ĐGNL",
+      "created_at": "11/07/2024 10:16:23",
+      "image": "https://hocaz.vn/_next/image?url=https%3A%2F%2Fstorage.googleapis.com%2Fhocthongminhs.appspot.com%2Fprod%2F2023%2F02%2F22%2F90887829.png&w=1920&q=75",
+      "describe": "Khóa chuyên luyện thi ĐGNL chất lượng nhất 1"
     },
     {
       "id": 2,
-      "username": "user2",
-      "password": "MÃ HÓA BCRYPT",
-      "email": "user2@gmail.com",
-      "role": 1,
-      "profilePicture": "https://picture.com/images/user2.jpg",
-      "status": 0
+      "nameCourse": "Khóa luyện thi tốt nghiệp THPT",
+      "created_at": "03/07/2024 23:32:03",
+      "describe": "Khóa chuyên luyện thi TNTHPT chất lượng nhất",
+      "image": "https://hocaz.vn/_next/image?url=https%3A%2F%2Fstorage.googleapis.com%2Fhocthongminhs.appspot.com%2Fprod%2F2022%2F10%2F13%2F57164792.png&w=1920&q=75"
+    },
+    {
+      "id": 3,
+      "nameCourse": "Khóa luyện thi cấp 3",
+      "created_at": "03/07/2024 23:32:02",
+      "describe": "Khóa chuyên luyện thi cấp 3 chất lượng nhất",
+      "image": "https://hocaz.vn/_next/image?url=https%3A%2F%2Fstorage.googleapis.com%2Fhocthongminhs.appspot.com%2Fprod%2F2022%2F10%2F13%2F88393304.jpg&w=1920&q=75"
+    },
+    {
+      "id": 4,
+      "nameCourse": "Khóa luyện thi cấp 2",
+      "created_at": "03/07/2024 23:32:00",
+      "describe": "Khóa chuyên luyện thi cấp 2 chất lượng nhất",
+      "image": "https://hocaz.vn/_next/image?url=https%3A%2F%2Fstorage.googleapis.com%2Fhocthongminhs.appspot.com%2Fprod%2F2023%2F06%2F20%2F6141675.png&w=1920&q=75"
+    },
+    {
+      "nameCourse": "Khóa luyện thi đại học",
+      "describe": "Toán 123",
+      "image": "https://firebasestorage.googleapis.com/v0/b/project-m24-b5efe.appspot.com/o/images%2F300px-HTML5_logo_resized.svg.png?alt=media&token=06dffb96-6f5e-4771-99d6-cb9f10bc7b02",
+      "created_at": "11/07/2024 09:30:50",
+      "id": 5
+    },
+    {
+      "nameCourse": "Khóa luyện thi IELTS",
+      "describe": "Khóa chuyên luyện thi IELTS",
+      "image": "https://firebasestorage.googleapis.com/v0/b/project-m24-b5efe.appspot.com/o/images%2Fca-phe-espresso-2.jpg?alt=media&token=1b645eb9-f7fc-4561-a3a5-1cf7b8c8ef64",
+      "created_at": "11/07/2024 14:57:34",
+      "id": 6
+    },
+    {
+      "id": 7,
+      "nameCourse": "Khoa luyen thi TOEIC",
+      "created_at": "16/07/2024 17:25:52",
+      "describe": "Khoa chuyen thi TOEIC 1"
     }
   ],
-  "courses": [
+  "lesson": [
     {
       "id": 1,
-      "title": "Khóa luyện thi đại học",
-      "description": "Khóa luyện thi cho học sinh chuẩn bị thi đại học"
+      "idCourse": 1,
+      "nameSubject": "Môn Toán Cao Cấp",
+      "created_at": "29/02/2024",
+      "describe": "Bộ đề thi thử THPT Quốc Gia môn Toán có đáp án và lời giải",
+      "image": "https://climatejusticeonline.org/wp-content/uploads/2018/05/nhung-dieu-can-biet-ve-nganh-toan-hoc-ung-dung-1-e1526546539332.jpg",
+      "chapter": 0
     },
     {
       "id": 2,
-      "title": "Khóa luyện thi THPT",
-      "description": "Khóa học dành cho học sinh 10, 11, 12"
+      "idCourse": 2,
+      "nameSubject": "Môn Toán",
+      "created_at": "19/01/2023",
+      "describe": "Bộ đề thi thử THPT Quốc Gia môn Toán có đáp án và lời giải",
+      "image": "https://climatejusticeonline.org/wp-content/uploads/2018/05/nhung-dieu-can-biet-ve-nganh-toan-hoc-ung-dung-1-e1526546539332.jpg",
+      "chapter": 0
+    },
+    {
+      "id": 3,
+      "idCourse": 3,
+      "nameSubject": "Môn Toán 11",
+      "created_at": "23/01/2024",
+      "describe": "Bộ đề thi thử THPT Quốc Gia môn Toán có đáp án và lời giải",
+      "image": "https://climatejusticeonline.org/wp-content/uploads/2018/05/nhung-dieu-can-biet-ve-nganh-toan-hoc-ung-dung-1-e1526546539332.jpg",
+      "chapter": 0
+    },
+    {
+      "id": 4,
+      "idCourse": 4,
+      "nameSubject": "Môn Toán 9",
+      "created_at": "17/12/2022",
+      "describe": "Bộ đề thi thử THPT Quốc Gia môn Toán có đáp án và lời giải",
+      "image": "https://climatejusticeonline.org/wp-content/uploads/2018/05/nhung-dieu-can-biet-ve-nganh-toan-hoc-ung-dung-1-e1526546539332.jpg",
+      "chapter": 0
+    },
+    {
+      "id": 5,
+      "idCourse": 5,
+      "nameSubject": "Môn Toán 5",
+      "created_at": "05/06/2024",
+      "describe": "Bộ đề thi thử THPT Quốc Gia môn Toán có đáp án và lời giải",
+      "image": "https://climatejusticeonline.org/wp-content/uploads/2018/05/nhung-dieu-can-biet-ve-nganh-toan-hoc-ung-dung-1-e1526546539332.jpg",
+      "chapter": 0
+    },
+    {
+      "id": 6,
+      "idCourse": 2,
+      "nameSubject": "Môn Vật Lý",
+      "created_at": "22/07/2023",
+      "describe": "Bộ đề thi thử THPT Quốc Gia môn Toán có đáp án và lời giải",
+      "image": "https://climatejusticeonline.org/wp-content/uploads/2018/05/nhung-dieu-can-biet-ve-nganh-toan-hoc-ung-dung-1-e1526546539332.jpg",
+      "chapter": 0
+    },
+    {
+      "nameSubject": "Địa Lý",
+      "describe": "Chuyên luyện thi THPT môn Lịch Sử 1",
+      "image": "https://firebasestorage.googleapis.com/v0/b/project-m24-b5efe.appspot.com/o/images%2F0447_1.jpg?alt=media&token=0665243a-4dfb-497d-abd2-6b3dab68ac8d",
+      "idCourse": "2",
+      "created_at": "11/07/2024 09:47:02",
+      "id": 7
+    },
+    {
+      "nameSubject": "Lịch Sử",
+      "describe": "Luyện thi TNTHPT môn Lịch Sử",
+      "image": "https://firebasestorage.googleapis.com/v0/b/project-m24-b5efe.appspot.com/o/images%2Fca-phe-nguyen-chat.jpg?alt=media&token=3ca09e1c-5dd8-486f-b8e9-a37f902dc65b",
+      "idCourse": "2",
+      "created_at": "11/07/2024 09:52:58",
+      "id": 8
+    },
+    {
+      "id": 9,
+      "idCourse": "2",
+      "nameSubject": "Tieng Anh",
+      "created_at": "16/07/2024 17:26:32",
+      "describe": "12345678"
     }
   ],
-  "examSubjects": [
+  "exam": [
     {
       "id": 1,
-      "title": "Môn Toán",
-      "description": "Luyện thi đại học Toán học",
-      "courseId": 1
+      "idLesson": 1,
+      "nameLesson": "Chương 1: Tập hợp và ánh xạ",
+      "dateAdd": "29/02/2022",
+      "image": "https://img.pikbest.com/png-images/vector-illustration-of-scientific-formulas-and-calculations-in-physics-and-mathematics-_1431448.png!f305cw",
+      "examTurn": 2000,
+      "level": 1
     },
     {
       "id": 2,
-      "title": "Vật lý lớp 11",
-      "description": "Luyện thi Vật lý lớp 11",
-      "courseId": 2
+      "idLesson": 1,
+      "nameLesson": "Chương 2: Hình học, giải tích",
+      "dateAdd": "11/07/2022",
+      "image": "https://img.pikbest.com/png-images/vector-illustration-of-scientific-formulas-and-calculations-in-physics-and-mathematics-_1431448.png!f305cw",
+      "examTurn": 4100,
+      "level": 2
+    },
+    {
+      "id": 3,
+      "idLesson": 2,
+      "nameLesson": "Đề thi tốt nghiệp THPT Môn Toán năm 2022",
+      "dateAdd": "23/08/2023",
+      "image": "https://img.pikbest.com/png-images/vector-illustration-of-scientific-formulas-and-calculations-in-physics-and-mathematics-_1431448.png!f305cw",
+      "examTurn": 12000,
+      "level": 3
+    },
+    {
+      "id": 4,
+      "idLesson": 6,
+      "nameLesson": "Đề thi tốt nghiệp THPT Vật Lý năm 2023",
+      "dateAdd": "09/12/2023",
+      "image": "https://img.pikbest.com/png-images/vector-illustration-of-scientific-formulas-and-calculations-in-physics-and-mathematics-_1431448.png!f305cw",
+      "describe": "Đề thi của Sở GD và đào tạo tỉnh Hải Dương",
+      "examTurn": 20000,
+      "level": 4
+    },
+    {
+      "id": 5,
+      "idLesson": 3,
+      "nameLesson": "Chương 1: Xác suất, thống kê",
+      "dateAdd": "14/11/2023",
+      "image": "https://img.pikbest.com/png-images/vector-illustration-of-scientific-formulas-and-calculations-in-physics-and-mathematics-_1431448.png!f305cw",
+      "examTurn": 25000,
+      "level": 3
+    },
+    {
+      "id": 6,
+      "idLesson": 4,
+      "nameLesson": "Chương 1: Căn bậc hai",
+      "dateAdd": "09/10/2023",
+      "image": "https://img.pikbest.com/png-images/vector-illustration-of-scientific-formulas-and-calculations-in-physics-and-mathematics-_1431448.png!f305cw",
+      "examTurn": 40000,
+      "level": 4
+    },
+    {
+      "id": 7,
+      "idLesson": 5,
+      "nameLesson": "Chương 1: Đại lượng",
+      "dateAdd": "19/11/2023",
+      "image": "https://img.pikbest.com/png-images/vector-illustration-of-scientific-formulas-and-calculations-in-physics-and-mathematics-_1431448.png!f305cw",
+      "examTurn": 22000,
+      "level": 4
+    },
+    {
+      "idLesson": "7",
+      "nameLesson": "Địa lý Tự nhiên",
+      "describe": "1234567",
+      "image": "https://firebasestorage.googleapis.com/v0/b/project-m24-b5efe.appspot.com/o/images%2FDJI_0210.jpg?alt=media&token=a4c71e22-56e1-47ab-8ea6-2e20d76202a4",
+      "dateAdd": "16/07/2024 16:34:24",
+      "examTurn": 0,
+      "id": 8
+    },
+    {
+      "idLesson": "6",
+      "nameLesson": "Đề thi tốt nghiệp THPT Vật Lý năm 2023 mã đề 101",
+      "describe": "sfdfdvvh",
+      "image": "https://firebasestorage.googleapis.com/v0/b/project-m24-b5efe.appspot.com/o/images%2FDJI_0210.jpg?alt=media&token=558694e3-3db1-4ded-ad8f-06bbd911ec69",
+      "dateAdd": "16/07/2024 17:27:23",
+      "examTurn": 0,
+      "id": 9
     }
   ],
-  "exams": [
+  "question": [
     {
       "id": 1,
-      "title": "Đề thi Toán học THPT Chuyên Lam Sơn Thanh Hóa",
-      "description": "Đề thi Toán Học năm 2023",
-      "duration": 90,
-      "examSubjectId": 1
+      "idExam": 4,
+      "nameQues": "Công thức tính tính vận tốc là gì?",
+      "created_at": "22/05/2022",
+      "options": [
+        "v = s/t",
+        "v = s/t^2",
+        "v = s/t^3",
+        "v = s/t^4"
+      ],
+      "answer": "v = s/t"
     },
     {
-      "id": 2,
-      "title": "Đề thi Vật lý cơ bản lớp 11",
-      "description": "Đề thi gồm các câu hỏi cơ bản về Vật lý 11",
-      "duration": 60,
-      "examSubjectId": 2
+      "id": 3,
+      "idExam": 2,
+      "nameQues": "Tỉnh thành nào rộng nhất Việt Nam?",
+      "created_at": "25/11/2022",
+      "options": [
+        "Thanh Hóa",
+        "Gia Lai",
+        "Nghệ An",
+        "Sơn La"
+      ],
+      "answer": "Nghệ An"
+    },
+    {
+      "nameQues": "1 + 1 bằng mấy?",
+      "options": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "answer": "2",
+      "idExam": "1",
+      "created_at": "09/07/2024 16:39:55",
+      "id": 4
+    },
+    {
+      "nameQues": "1 + 1 bằng mấy?",
+      "options": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "answer": "2",
+      "idExam": "4",
+      "created_at": "11/07/2024 13:06:59",
+      "id": 5
+    },
+    {
+      "nameQues": "9 nhân 3 bằng mấy?",
+      "options": [
+        "21",
+        "27",
+        "36",
+        "42"
+      ],
+      "answer": "27",
+      "idExam": "5",
+      "created_at": "16/07/2024 02:45:30",
+      "id": 6
+    },
+    {
+      "nameQues": "1 + 6 bằng mấy?",
+      "options": [
+        "4",
+        "5",
+        "6",
+        "7"
+      ],
+      "answer": "7",
+      "idExam": "4",
+      "created_at": "16/07/2024 17:28:07",
+      "id": 7
+    },
+    {
+      "nameQues": "9 nhân 3 bằng mấy?",
+      "options": [
+        "24",
+        "27",
+        "30",
+        "33"
+      ],
+      "answer": "27",
+      "idExam": "4",
+      "created_at": "2024/07/16",
+      "id": 8
     }
   ],
-  "questions": [
+  "answers": [
     {
       "id": 1,
-      "question": "phương trình có nghiệm X =? X2-2X+1=0",
-      "examId": 1,
-      "options": ["0", "1", "2", "3"],
-      "answer": "1"
-    },
-    {
-      "id": 2,
-      "question": "Định lý Pythagore áp dụng cho loại tam giác nào?",
-      "examId": 2,
-      "options": ["Tam giác vuông", "Tam giác đều"]
+      "idUser": 2,
+      "idExam": 4,
+      "score": 5
     }
   ],
-  "userAnswers": [
+  "user": [
     {
       "id": 1,
-      "userId": 1,
-      "examId": 1,
-      "score": 15
+      "name": "hoang2005",
+      "email": "huyhoangcs2611@gmail.com",
+      "password": "hoang2005",
+      "confirmPassword": "hoang2005",
+      "status": 0,
+      "image": "https://firebasestorage.googleapis.com/v0/b/project-m24-b5efe.appspot.com/o/images%2Fz5638862384724_478c2b9f25493d9da8972d9a9d0f4481.jpg?alt=media&token=45c144a8-3147-422d-87a0-4a5455d66194",
+      "created_at": "06/07/2024 16:55:56",
+      "address": "Thanh Xuân, Hà Nội"
     },
     {
       "id": 2,
-      "userId": 2,
-      "examId": 2,
-      "score": 8
+      "name": "huyen2005",
+      "email": "huyen2005@gmail.com",
+      "password": "huyen2005",
+      "confirmPassword": "huyen2005",
+      "status": 0,
+      "image": "https://cellphones.com.vn/sforum/wp-content/uploads/2023/10/avatar-trang-4.jpg",
+      "created_at": "07/07/2024 09:50:29",
+      "address": "12345",
+      "inputValue": {
+        "name": "huyen2005",
+        "email": "huyen2005@gmail.com",
+        "address": "123"
+      }
+    },
+    {
+      "id": 3,
+      "name": "trang2005",
+      "email": "trang2005@gmail.com",
+      "password": "trang2005",
+      "confirmPassword": "trang2005",
+      "status": 0,
+      "image": "https://cellphones.com.vn/sforum/wp-content/uploads/2023/10/avatar-trang-4.jpg",
+      "created_at": "11/07/2024 00:05:58",
+      "address": ""
+    },
+    {
+      "name": "trang2005",
+      "email": "trang2005@gmail.com",
+      "password": "trang2005",
+      "confirmPassword": "trang2005",
+      "status": 0,
+      "image": "https://cellphones.com.vn/sforum/wp-content/uploads/2023/10/avatar-trang-4.jpg",
+      "created_at": "16/07/2024 17:16:24",
+      "address": "",
+      "id": 4
+    },
+    {
+      "id": 5,
+      "name": "quynh2005",
+      "email": "quynh2005@gmail.com",
+      "password": "quynh2005",
+      "confirmPassword": "quynh2005",
+      "status": 0,
+      "image": "https://cellphones.com.vn/sforum/wp-content/uploads/2023/10/avatar-trang-4.jpg",
+      "created_at": "16/07/2024 17:24:21",
+      "address": ""
+    }
+  ],
+  "history": [
+    {
+      "idUser": 1,
+      "idExam": 4,
+      "idCourse": 2,
+      "idSubject": 6,
+      "score": 5,
+      "timeCompleted": "00:04",
+      "date": "16/07/2024",
+      "id": 1
+    },
+    {
+      "idUser": 1,
+      "idExam": 2,
+      "idCourse": 1,
+      "idSubject": 1,
+      "score": 10,
+      "timeCompleted": "00:04",
+      "date": "16/07/2024",
+      "id": 2
+    },
+    {
+      "idUser": 1,
+      "idExam": 4,
+      "idCourse": 2,
+      "idSubject": 6,
+      "score": 10,
+      "timeCompleted": "00:04",
+      "date": "16/07/2024",
+      "id": 3
+    },
+    {
+      "idUser": 3,
+      "idExam": 4,
+      "idCourse": 2,
+      "idSubject": 6,
+      "score": 5,
+      "timeCompleted": "00:07",
+      "date": "16/07/2024",
+      "id": 4
+    },
+    {
+      "idUser": 3,
+      "idExam": 2,
+      "idCourse": 1,
+      "idSubject": 1,
+      "score": 5,
+      "timeCompleted": "00:20",
+      "date": "16/07/2024",
+      "id": 5
+    },
+    {
+      "idUser": 1,
+      "idExam": 4,
+      "idCourse": 2,
+      "idSubject": 6,
+      "score": 0,
+      "timeCompleted": "00:05",
+      "date": "13/08/2024",
+      "id": 6
+    },
+    {
+      "idUser": 1,
+      "idExam": 4,
+      "idCourse": 2,
+      "idSubject": 6,
+      "score": 5,
+      "timeCompleted": "00:23",
+      "date": "13/08/2024",
+      "id": 7
     }
   ],
   "admin": {

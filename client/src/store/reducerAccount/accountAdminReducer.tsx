@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { AccountAdmin } from "../../interface/index";
+import { AccountAdmin } from "../../interface/admin";
 import { getAdmin } from "../../services/accountAdmin.service";
 
 const state: AccountAdmin[] = [];
