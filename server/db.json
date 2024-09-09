@@ -240,16 +240,16 @@
       "answer": "Nghệ An"
     },
     {
-      "nameQues": "1 + 1 bằng mấy?",
+      "nameQues": "1 + 2 bằng mấy?",
       "options": [
         "1",
         "2",
         "3",
         "4"
       ],
-      "answer": "2",
+      "answer": "3",
       "idExam": "1",
-      "created_at": "09/07/2024 16:39:55",
+      "created_at": "09/09/2024 15:51:20",
       "id": 4
     },
     {
@@ -372,6 +372,17 @@
       "status": 0,
       "image": "https://cellphones.com.vn/sforum/wp-content/uploads/2023/10/avatar-trang-4.jpg",
       "created_at": "16/07/2024 17:24:21",
+      "address": ""
+    },
+    {
+      "id": 6,
+      "name": "vandoan",
+      "email": "doan@gmail.com",
+      "password": "111",
+      "confirmPassword": "111",
+      "status": 0,
+      "image": "",
+      "created_at": "9/9/2024, 6:27:46 PM",
       "address": ""
     }
   ],
