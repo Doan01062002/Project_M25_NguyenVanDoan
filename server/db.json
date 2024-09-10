@@ -47,6 +47,13 @@
       "nameCourse": "Khoa luyen thi TOEIC",
       "created_at": "16/07/2024 17:25:52",
       "describe": "Khoa chuyen thi TOEIC 1"
+    },
+    {
+      "nameCourse": "Khoa gaming",
+      "describe": "lien quan mobile",
+      "image": "https://firebasestorage.googleapis.com/v0/b/projectm25-63aa5.appspot.com/o/images%2Fhinh-nen-full-hd-cho-laptop-15.jpg?alt=media&token=b7cd4740-1043-4172-b664-1adb996624fd",
+      "created_at": "10/09/2024 11:38:52",
+      "id": 8
     }
   ],
   "lesson": [
@@ -303,6 +310,45 @@
       "idExam": "4",
       "created_at": "2024/07/16",
       "id": 8
+    },
+    {
+      "nameQues": "1 + 2 bằng mấy?",
+      "options": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "answer": "",
+      "idExam": "3",
+      "created_at": "2024/09/10",
+      "id": 9
+    },
+    {
+      "nameQues": "1+1 = ?",
+      "options": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "answer": "",
+      "idExam": "3",
+      "created_at": "10/09/2024 19:23:07",
+      "id": 10
+    },
+    {
+      "nameQues": "1+3 = ?",
+      "options": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "answer": "4",
+      "idExam": "1",
+      "created_at": "2024/09/10",
+      "id": 11
     }
   ],
   "answers": [
@@ -381,9 +427,9 @@
       "password": "111",
       "confirmPassword": "111",
       "status": 0,
-      "image": "",
+      "image": "https://firebasestorage.googleapis.com/v0/b/projectm25-63aa5.appspot.com/o/images%2Fhinh-nen-full-hd-cho-laptop-15.jpg?alt=media&token=1cd3f195-4084-4a78-94c6-d310648d8e2f",
       "created_at": "9/9/2024, 6:27:46 PM",
-      "address": ""
+      "address": "phú thọ"
     }
   ],
   "history": [
@@ -456,6 +502,36 @@
       "timeCompleted": "00:23",
       "date": "13/08/2024",
       "id": 7
+    },
+    {
+      "idUser": 6,
+      "idExam": 1,
+      "idCourse": 1,
+      "idSubject": 1,
+      "score": [],
+      "timeCompleted": "00:00",
+      "date": "10/09/2024",
+      "id": 8
+    },
+    {
+      "idUser": 6,
+      "idExam": 4,
+      "idCourse": 2,
+      "idSubject": 6,
+      "score": 2.5,
+      "timeCompleted": "00:15",
+      "date": "10/09/2024",
+      "id": 9
+    },
+    {
+      "idUser": 6,
+      "idExam": 4,
+      "idCourse": 2,
+      "idSubject": 6,
+      "score": 5,
+      "timeCompleted": "00:23",
+      "date": "10/09/2024",
+      "id": 10
     }
   ],
   "admin": {

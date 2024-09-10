@@ -17,8 +17,8 @@ const userReducer = createSlice({
   name: "user",
   initialState: {
     user: userState,
-    total: 0, // Số lượng user tổng cộng
-    account: JSON.parse(localStorage.getItem("account") || "{}"),
+    total: 0, // Số lượng user tổng
+    account: JSON.parse(localStorage.getItem("checkUser") || "{}"),
   },
   reducers: {},
   extraReducers: (builder) => {

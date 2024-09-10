@@ -43,18 +43,6 @@ export const updateSubject: any = createAsyncThunk(
   }
 );
 
-// API tìm kiếm môm học
-export const searchSubject: any = createAsyncThunk(
-  "subject/searchSubject",
-  async (searchItem: string) => {
-    const URL = process.env.NEXT_PUBLIC_VITE_BASE_URL;
-    const response = await axios.get(
-      `${URL}/lesson?nameSubject_like=${searchItem}`
-    );
-    return response.data;
-  }
-);
-
 // API sắp xếp môn thi từ A-Z và từ Z-A
 export const sortSubject: any = createAsyncThunk(
   "subject/sortSubject",
@@ -62,6 +50,24 @@ export const sortSubject: any = createAsyncThunk(
     const URL = process.env.NEXT_PUBLIC_VITE_BASE_URL;
     const response = await axios.get(
       `${URL}/lesson?_sort=nameSubject&_order=${sort}`
+    );
+    return response.data;
+  }
+);
+
+// API tìm kiếm môn học trong khoa thi
+export const searchSubject: any = createAsyncThunk(
+  "subject/searchSubject",
+  async ({
+    idCourse,
+    searchItem,
+  }: {
+    idCourse: number;
+    searchItem: string;
+  }) => {
+    const URL = process.env.NEXT_PUBLIC_VITE_BASE_URL;
+    const response = await axios.get(
+      `${URL}/lesson?nameSubject_like=${searchItem}&idCourse=${idCourse}`
     );
     return response.data;
   }

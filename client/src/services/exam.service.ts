@@ -50,12 +50,14 @@ export const getExamById: any = createAsyncThunk(
   }
 );
 
-// API tìm kiếm thông tin đề
+// API tìm kiếm đề thi trong môn học
 export const searchExam: any = createAsyncThunk(
   "exam/searchExam",
-  async (search: string) => {
+  async ({ idLesson, search }: { idLesson: number; search: string }) => {
     const URL = process.env.NEXT_PUBLIC_VITE_BASE_URL;
-    const response = await axios.get(`${URL}/exam?nameLesson_like=${search}`);
+    const response = await axios.get(
+      `${URL}/exam?nameLesson_like=${search}&idLesson=${idLesson}`
+    );
     return response.data;
   }
 );

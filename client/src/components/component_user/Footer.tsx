@@ -7,7 +7,7 @@ export default function Footer() {
           <div className="lg:w-1/2 space-y-6">
             <div className="flex items-center space-x-4">
               <img
-                src="https://static.vecteezy.com/system/resources/previews/009/182/690/original/thi-letter-logo-design-with-polygon-shape-thi-polygon-and-cube-shape-logo-design-thi-hexagon-logo-template-white-and-black-colors-thi-monogram-business-and-real-estate-logo-vector.jpg"
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7YjOcWqqSFwp2tsPsnvu4Hx4n5hdvanfzbg&s"
                 alt="Logo"
                 className="w-24 h-24 rounded-full"
               />

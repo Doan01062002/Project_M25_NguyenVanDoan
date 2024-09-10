@@ -5,6 +5,7 @@ import courseReducer from "./reducerAccount/courseReducer";
 import subjectReducer from "./reducerAccount/subjectReducer";
 import examReducer from "./reducerAccount/examReducer";
 import questionReducer from "./reducerAccount/questionReducer";
+import historyReducer from "./reducerAccount/historyReducer";
 
 const store: any = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ const store: any = configureStore({
     subjects: subjectReducer,
     exams: examReducer,
     questions: questionReducer,
+    historys: historyReducer,
   },
 });
 

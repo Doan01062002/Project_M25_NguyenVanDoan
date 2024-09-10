@@ -1,11 +1,12 @@
 "use client";
 import { useDispatch, useSelector } from "react-redux";
 import Footer from "@/components/component_user/Footer";
-import Header from "@/components/component_user/header";
+import Header from "@/components/component_user/Header";
 import { useEffect } from "react";
 import { getAllCourse } from "@/services/course.service";
 import { Course } from "@/interface/admin";
 import { useRouter } from "next/navigation";
+import Carousel from "react-bootstrap/Carousel";
 
 export default function Home() {
   const courseState = useSelector((state: any) => state.courses.course);
@@ -17,7 +18,7 @@ export default function Home() {
   }, [dispatch]);
 
   const handleClick = (id: number, course: Course) => {
-    router.push(`/subject/${course.nameCourse}/${id}`);
+    router.push(`/user/subject/${course.nameCourse}/${id}`);
     localStorage.setItem("idCourse", JSON.stringify(id));
   };
 
@@ -26,100 +27,76 @@ export default function Home() {
       <Header />
       <main className="flex-1">
         {/* Carousel */}
-        <section className="relative">
-          <div id="carouselExampleCaptions" className="carousel slide">
-            <div className="carousel-inner relative overflow-hidden w-full">
-              {[
-                {
-                  imgSrc:
-                    "https://i.ytimg.com/vi/Vw6sX_a-xyM/maxresdefault.jpg",
-                  captionTitle: "Cô Vũ Thị Mai Phương",
-                  captionText: "Nâng cao trình độ ngữ pháp cùng từ vựng!",
-                },
-                {
-                  imgSrc:
-                    "https://mshoagiaotiep.com/uploads/images/resize/900x900/2020/08/lotrinhkhtructuyen.png",
-                  captionTitle: "Cô Nguyễn Minh Hoa",
-                  captionText: "Kỹ năng giao tiếp linh hoạt!",
-                },
-                {
-                  imgSrc:
-                    "https://i.ytimg.com/vi/3uUa9-LKfcA/maxresdefault.jpg",
-                  captionTitle: "Thầy Lưu Huy Thưởng",
-                  captionText:
-                    "Đạt giải thưởng Giáo viên Quốc Tế và Tin Học Nâng Cao",
-                },
-              ].map((item, index) => (
-                <div
-                  key={index}
-                  className={`carousel-item ${index === 0 ? "active" : ""}`}
-                >
-                  <img
-                    src={item.imgSrc}
-                    className="d-block w-full h-96 object-cover"
-                    alt={`Slide ${index + 1}`}
-                  />
-                  <div className="carousel-caption absolute bottom-0 left-0 right-0 text-center bg-gradient-to-t from-black to-transparent text-white p-4">
-                    <h1 className="text-2xl font-bold mb-2 bg-yellow-500 p-2 rounded-lg">
-                      {item.captionTitle}
-                    </h1>
-                    <p className="text-lg bg-yellow-500 p-2 rounded-lg">
-                      {item.captionText}
-                    </p>
-                  </div>
+        <Carousel fade>
+          <Carousel.Item>
+            <img
+              src="https://i.ytimg.com/vi/Vw6sX_a-xyM/maxresdefault.jpg"
+              alt="First slide"
+              className="w-full h-[500px] object-cover rounded-lg shadow-md transition-transform duration-300 hover:scale-105"
+            />
+            <Carousel.Caption>
+              <h3 className="text-xl font-bold">First slide label</h3>
+              <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+            </Carousel.Caption>
+          </Carousel.Item>
+          <Carousel.Item>
+            <img
+              src="https://mshoagiaotiep.com/uploads/images/resize/900x900/2020/08/lotrinhkhtructuyen.png"
+              alt="Second slide"
+              className="w-full h-[500px] object-cover rounded-lg shadow-md transition-transform duration-300 hover:scale-105"
+            />
+            <Carousel.Caption>
+              <h3 className="text-xl font-bold">Second slide label</h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </Carousel.Caption>
+          </Carousel.Item>
+          <Carousel.Item>
+            <img
+              src="https://i.ytimg.com/vi/3uUa9-LKfcA/maxresdefault.jpg"
+              alt="Third slide"
+              className="w-full h-[500px] object-cover rounded-lg shadow-md transition-transform duration-300 hover:scale-105"
+            />
+            <Carousel.Caption>
+              <h3 className="text-xl font-bold">Third slide label</h3>
+              <p>
+                Praesent commodo cursus magna, vel scelerisque nisl consectetur.
+              </p>
+            </Carousel.Caption>
+          </Carousel.Item>
+        </Carousel>
+
+        {/* Courses */}
+        <section className="p-6">
+          <h1 className="text-3xl font-bold text-center mb-8">
+            Các khóa luyện thi
+          </h1>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+            {courseState.map((course: Course) => (
+              <div
+                key={course.id}
+                className="bg-white shadow-lg rounded-lg overflow-hidden transition-transform transform hover:scale-105 cursor-pointer"
+                onClick={() => handleClick(course.id, course)}
+              >
+                <img
+                  src={course.image}
+                  alt={course.nameCourse}
+                  className="w-full h-48 object-cover"
+                />
+                <div className="p-4">
+                  <h3 className="text-xl font-semibold text-center text-red-600 mb-2">
+                    {course.nameCourse}
+                  </h3>
+                  <p className="text-center text-gray-600">{course.describe}</p>
                 </div>
-              ))}
-            </div>
-            <button
-              className="carousel-control-prev absolute top-1/2 left-0 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full"
-              type="button"
-              data-bs-target="#carouselExampleCaptions"
-              data-bs-slide="prev"
-            >
-              <span className="carousel-control-prev-icon" aria-hidden="true" />
-              <span className="visually-hidden">Previous</span>
-            </button>
-            <button
-              className="carousel-control-next absolute top-1/2 right-0 transform -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full"
-              type="button"
-              data-bs-target="#carouselExampleCaptions"
-              data-bs-slide="next"
-            >
-              <span className="carousel-control-next-icon" aria-hidden="true" />
-              <span className="visually-hidden">Next</span>
-            </button>
-            <div className="absolute bottom-0 left-0 right-0 flex justify-center space-x-2 pb-4">
-              <button
-                type="button"
-                data-bs-target="#carouselExampleCaptions"
-                data-bs-slide-to="0"
-                className="bg-gray-800 text-white rounded-full w-3 h-3"
-                aria-current="true"
-                aria-label="Slide 1"
-              />
-              <button
-                type="button"
-                data-bs-target="#carouselExampleCaptions"
-                data-bs-slide-to="1"
-                className="bg-gray-800 text-white rounded-full w-3 h-3"
-                aria-label="Slide 2"
-              />
-              <button
-                type="button"
-                data-bs-target="#carouselExampleCaptions"
-                data-bs-slide-to="2"
-                className="bg-gray-800 text-white rounded-full w-3 h-3"
-                aria-label="Slide 3"
-              />
-            </div>
+              </div>
+            ))}
           </div>
         </section>
-
         {/* Banner */}
         <div className="relative overflow-hidden bg-gray-800 text-white">
           <div className="absolute inset-0">
             <img
-              src="https://eduquiz.vn/_next/image?url=%2Fassets%2Fimages%2Fhomepage%2Fbanner_user_4.png&w=3840&q=100"
+              src="https://png.pngtree.com/thumb_back/fh260/back_our/20190625/ourmid/pngtree-college-entrance-test-cartoon-education-banner-background-image_257536.jpg"
               alt="Banner Background"
               className="w-full h-full object-cover"
             />
@@ -153,35 +130,8 @@ export default function Home() {
             </div>
           </div>
         </div>
-
-        {/* Courses */}
-        <section className="p-6">
-          <h1 className="text-3xl font-bold text-center mb-8">
-            Các khóa luyện thi
-          </h1>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-            {courseState.map((course: Course) => (
-              <div
-                key={course.id}
-                className="bg-white shadow-lg rounded-lg overflow-hidden transition-transform transform hover:scale-105 cursor-pointer"
-                onClick={() => handleClick(course.id, course)}
-              >
-                <img
-                  src={course.image}
-                  alt={course.nameCourse}
-                  className="w-full h-48 object-cover"
-                />
-                <div className="p-4">
-                  <h3 className="text-xl font-semibold text-center text-red-600 mb-2">
-                    {course.nameCourse}
-                  </h3>
-                  <p className="text-center text-gray-600">{course.describe}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
       </main>
+      <br />
       <Footer />
     </div>
   );

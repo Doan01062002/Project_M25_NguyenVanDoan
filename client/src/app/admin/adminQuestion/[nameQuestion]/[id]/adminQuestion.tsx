@@ -8,7 +8,6 @@ import {
   addQues,
   deleteQues,
   getAllQues,
-  paginateQues,
   updateQues, // Import the update action
 } from "@/services/question.service";
 import { AddQues, Question } from "@/interface/admin";
@@ -18,12 +17,8 @@ import { useParams } from "next/navigation";
 export default function AdminQues() {
   const [quesDelete, setQuesDelete] = useState<Question | null>(null);
   const quesState = useSelector((state: any) => state.questions.ques);
-  const [currentPage, setCurrentPage] = useState(1); // Trang hiện tại
-  const [limit, setLimit] = useState(5); // Số bản ghi mỗi trang
-  const total = useSelector((state: any) => state.questions.total); // Tổng số câu hỏi
 
-  const { chapter } = useParams();
-  const { id }: { id: any } = useParams();
+  const { chapter, id }: { chapter: string; id: any } = useParams();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -50,7 +45,6 @@ export default function AdminQues() {
     setShowEdit(true);
   };
 
-  // Initial state for adding and editing questions
   const [question, setQuestion] = useState<AddQues>({
     nameQues: "",
     options: ["", "", "", ""],
@@ -91,7 +85,7 @@ export default function AdminQues() {
     }
   };
 
-  const handleRadioChange = (value: string) => {
+  const handleOptionClick = (value: string) => {
     setQuestion({ ...question, answer: value });
   };
 
@@ -101,16 +95,14 @@ export default function AdminQues() {
     setQuestion({ ...question, options: newOption });
   };
 
-  // Handle delete question
-  const handleDelete = async (idDelete: number) => {
-    await dispatch(deleteQues(idDelete));
+  const handleDelete = async (idCheck: number) => {
+    await dispatch(deleteQues(idCheck));
     setQuesDelete(null);
     if (id) {
       await dispatch(getAllQues(parseInt(id)));
     }
   };
 
-  // Handle edit question
   const [quesEdit, setQuesEdit] = useState<Question | null>(null);
   const handleEdit = async () => {
     let valid = true;
@@ -137,20 +129,6 @@ export default function AdminQues() {
       if (id) {
         await dispatch(getAllQues(parseInt(id)));
       }
-    }
-  };
-
-  //   phân trang
-
-  useEffect(() => {
-    dispatch(paginateQues({ page: currentPage, limit }));
-  }, [dispatch, currentPage, limit]);
-
-  const totalPages = Math.ceil(total / limit); // Tổng số trang
-
-  const handlePageChange = (newPage: number) => {
-    if (newPage > 0 && newPage <= totalPages) {
-      setCurrentPage(newPage); // Correctly sets the new page
     }
   };
 
@@ -195,22 +173,35 @@ export default function AdminQues() {
                       )}
                     </Form.Group>
                     <Form.Label>Đáp án</Form.Label>
+                    <div className="options-list">
+                      {question.options.map((option, index) => (
+                        <Button
+                          key={index}
+                          variant={
+                            question.answer === option ? "success" : "secondary"
+                          }
+                          onClick={() => handleOptionClick(option)}
+                          className="me-2"
+                        >
+                          {option || `Nhập đáp án ${index + 1}`}
+                        </Button>
+                      ))}
+                    </div>
+                    <Form.Text className="text-muted">
+                      {question.answer
+                        ? `Đáp án đúng: ${question.answer}`
+                        : "Chưa chọn đáp án đúng"}
+                    </Form.Text>
                     {question.options.map((option, index) => (
                       <Form.Group
                         className="mb-3 flex gap-2"
                         key={index}
                         controlId={`formOption${index + 1}`}
                       >
-                        <input
-                          type="radio"
-                          name="answer"
-                          value={option}
-                          checked={question.answer === option}
-                          onChange={(e) => handleRadioChange(e.target.value)}
-                        />
                         <Form.Control
                           type="text"
                           placeholder={`Nhập đáp án ${index + 1}`}
+                          value={option}
                           onChange={(e) =>
                             handleInputChange(index, e.target.value)
                           }
@@ -257,23 +248,35 @@ export default function AdminQues() {
                       )}
                     </Form.Group>
                     <Form.Label>Đáp án</Form.Label>
+                    <div className="options-list">
+                      {question.options.map((option, index) => (
+                        <Button
+                          key={index}
+                          variant={
+                            question.answer === option ? "success" : "secondary"
+                          }
+                          onClick={() => handleOptionClick(option)}
+                          className="me-2"
+                        >
+                          {option}
+                        </Button>
+                      ))}
+                    </div>
+                    <Form.Text className="text-muted">
+                      {question.answer
+                        ? `Đáp án đúng: ${question.answer}`
+                        : "Chưa chọn đáp án đúng"}
+                    </Form.Text>
                     {question.options.map((option, index) => (
                       <Form.Group
                         className="mb-3 flex gap-2"
                         key={index}
                         controlId={`formOption${index + 1}`}
                       >
-                        <input
-                          type="radio"
-                          name="answer"
-                          value={option}
-                          checked={question.answer === option}
-                          onChange={(e) => handleRadioChange(e.target.value)}
-                        />
                         <Form.Control
                           type="text"
                           placeholder={`Nhập đáp án ${index + 1}`}
-                          value={option} // Add value to display current option
+                          value={option}
                           onChange={(e) =>
                             handleInputChange(index, e.target.value)
                           }
@@ -337,12 +340,12 @@ export default function AdminQues() {
                       >
                         Sửa
                       </Button>
-                      <button
-                        className="btn btn-danger"
+                      <Button
+                        variant="danger"
                         onClick={() => setQuesDelete(question)}
                       >
                         Xóa
-                      </button>
+                      </Button>
                     </td>
                   </tr>
                 ))}
@@ -364,18 +367,15 @@ export default function AdminQues() {
                     </p>
                   </div>
                   <div className="modal-footer-footer">
-                    <button
-                      className="btn btn-light"
-                      onClick={() => setQuesDelete(null)}
-                    >
+                    <Button variant="light" onClick={() => setQuesDelete(null)}>
                       Hủy
-                    </button>
-                    <button
-                      className="btn btn-danger"
+                    </Button>
+                    <Button
+                      variant="danger"
                       onClick={() => handleDelete(quesDelete.id)}
                     >
                       Xóa
-                    </button>
+                    </Button>
                   </div>
                 </div>
               </div>
@@ -386,27 +386,18 @@ export default function AdminQues() {
                 <p>Hiển thị 10/20 bản ghi</p>
               </div>
               <div className="pagination">
-                <button
-                  onClick={() => handlePageChange(currentPage - 1)}
-                  disabled={currentPage === 1}
-                >
-                  Pre
-                </button>
-                {Array.from({ length: totalPages }, (_, i) => (
-                  <button
-                    key={i}
-                    onClick={() => handlePageChange(i + 1)}
-                    className={currentPage === i + 1 ? "active" : ""}
-                  >
-                    {i + 1}
-                  </button>
-                ))}
-                <button
-                  onClick={() => handlePageChange(currentPage + 1)}
-                  disabled={currentPage === totalPages}
-                >
-                  Next
-                </button>
+                <Form.Select aria-label="Default select example">
+                  <option value="1">Hiển thị 10 bản ghi trên trang</option>
+                  <option value="2">Hiển thị 20 bản ghi trên trang</option>
+                  <option value="3">Hiển thị 50 bản ghi trên trang</option>
+                  <option value="4">Hiển thị 100 bản ghi trên trang</option>
+                </Form.Select>
+                <div className="button">
+                  <Button>Pre</Button>
+                  <Button>1</Button>
+                  <Button>2</Button>
+                  <Button>Next</Button>
+                </div>
               </div>
             </div>
           </div>
