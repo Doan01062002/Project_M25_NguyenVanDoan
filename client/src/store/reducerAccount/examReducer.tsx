@@ -4,6 +4,7 @@ import {
   addExam,
   deleteExam,
   getAllExam,
+  getAllExams,
   getExamById,
   searchExam,
   updateExam,
@@ -21,6 +22,9 @@ const examReducer = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getAllExam.fulfilled, (state, action) => {
+        state.exam = action.payload;
+      })
+      .addCase(getAllExams.fulfilled, (state, action) => {
         state.exam = action.payload;
       })
       .addCase(addExam.fulfilled, (state, action) => {

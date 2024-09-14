@@ -1,6 +1,17 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
+// API lấy dữ liệu khóa học
+export const getAllExams: any = createAsyncThunk(
+  "exam/getAllExams",
+  async () => {
+    let url = process.env.NEXT_PUBLIC_VITE_BASE_URL;
+
+    const response = await axios.get(`${url}/exam`);
+    return response.data;
+  }
+);
+
 export const getAllExam: any = createAsyncThunk(
   "exam/getAllExam",
   async (id: number) => {

@@ -8,6 +8,7 @@ import {
   addQues,
   deleteQues,
   getAllQues,
+  paginateQues,
   updateQues, // Import the update action
 } from "@/services/question.service";
 import { AddQues, Question } from "@/interface/admin";
@@ -17,15 +18,20 @@ import { useParams } from "next/navigation";
 export default function AdminQues() {
   const [quesDelete, setQuesDelete] = useState<Question | null>(null);
   const quesState = useSelector((state: any) => state.questions.ques);
+  const totalQuestions = useSelector((state: any) => state.questions.total);
 
   const { chapter, id }: { chapter: string; id: any } = useParams();
   const dispatch = useDispatch();
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const [limit, setLimit] = useState(10); // Default limit per page
+
   useEffect(() => {
     if (id) {
-      dispatch(getAllQues(parseInt(id)));
+      dispatch(paginateQues({ page: currentPage, limit }));
     }
-  }, [dispatch, id]);
+  }, [dispatch, id, currentPage, limit]);
+
   const [show, setShow] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
 
@@ -50,9 +56,7 @@ export default function AdminQues() {
     options: ["", "", "", ""],
     answer: "",
   });
-  const [error, setError] = useState({
-    nameQues: "",
-  });
+  const [error, setError] = useState({ nameQues: "" });
 
   const resetData = () => {
     setQuestion({
@@ -82,6 +86,7 @@ export default function AdminQues() {
       await dispatch(addQues(newQues));
       setShow(false);
       resetData();
+      dispatch(paginateQues({ page: currentPage, limit }));
     }
   };
 
@@ -98,9 +103,7 @@ export default function AdminQues() {
   const handleDelete = async (idCheck: number) => {
     await dispatch(deleteQues(idCheck));
     setQuesDelete(null);
-    if (id) {
-      await dispatch(getAllQues(parseInt(id)));
-    }
+    dispatch(paginateQues({ page: currentPage, limit }));
   };
 
   const [quesEdit, setQuesEdit] = useState<Question | null>(null);
@@ -126,10 +129,12 @@ export default function AdminQues() {
       await dispatch(updateQues(updatedQues));
       setShowEdit(false);
       resetData();
-      if (id) {
-        await dispatch(getAllQues(parseInt(id)));
-      }
+      dispatch(paginateQues({ page: currentPage, limit }));
     }
+  };
+
+  const handlePageChange = (newPage: number) => {
+    setCurrentPage(newPage);
   };
 
   return (
@@ -381,24 +386,43 @@ export default function AdminQues() {
               </div>
             )}
             <br />
-            <div className="statistical">
-              <div className="total-records">
-                <p>Hiển thị 10/20 bản ghi</p>
-              </div>
-              <div className="pagination">
-                <Form.Select aria-label="Default select example">
-                  <option value="1">Hiển thị 10 bản ghi trên trang</option>
-                  <option value="2">Hiển thị 20 bản ghi trên trang</option>
-                  <option value="3">Hiển thị 50 bản ghi trên trang</option>
-                  <option value="4">Hiển thị 100 bản ghi trên trang</option>
-                </Form.Select>
-                <div className="button">
-                  <Button>Pre</Button>
-                  <Button>1</Button>
-                  <Button>2</Button>
-                  <Button>Next</Button>
-                </div>
-              </div>
+            {/* Pagination */}
+            <div className="flex justify-center space-x-2 mt-4">
+              <button
+                onClick={() => handlePageChange(currentPage - 1)}
+                disabled={currentPage === 1}
+                className={`px-4 py-2 border rounded-lg ${
+                  currentPage === 1
+                    ? "bg-gray-200 text-gray-400 cursor-not-allowed"
+                    : "bg-blue-500 text-white hover:bg-blue-600"
+                }`}
+              >
+                Pre
+              </button>
+              {[...Array(Math.ceil(totalQuestions / limit))].map((_, i) => (
+                <button
+                  key={i + 1}
+                  onClick={() => handlePageChange(i + 1)}
+                  className={`px-4 py-2 border rounded-lg ${
+                    currentPage === i + 1
+                      ? "bg-blue-600 text-white"
+                      : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+                  }`}
+                >
+                  {i + 1}
+                </button>
+              ))}
+              <button
+                onClick={() => handlePageChange(currentPage + 1)}
+                disabled={currentPage === Math.ceil(totalQuestions / limit)}
+                className={`px-4 py-2 border rounded-lg ${
+                  currentPage === Math.ceil(totalQuestions / limit)
+                    ? "bg-gray-200 text-gray-400 cursor-not-allowed"
+                    : "bg-blue-500 text-white hover:bg-blue-600"
+                }`}
+              >
+                Next
+              </button>
             </div>
           </div>
         </div>

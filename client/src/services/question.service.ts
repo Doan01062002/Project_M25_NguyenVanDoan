@@ -44,7 +44,7 @@ export const updateQues: any = createAsyncThunk(
 export const paginateQues: any = createAsyncThunk(
   "question/paginateQues",
   async ({ page, limit }: { page: number; limit: number }) => {
-    let URL = process.env.NEXT_PUBLIC_VITE_BASE_URL;
+    const URL = process.env.NEXT_PUBLIC_VITE_BASE_URL;
     const response = await axios.get(
       `${URL}/question?_page=${page}&_limit=${limit}`
     );

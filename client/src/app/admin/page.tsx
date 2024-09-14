@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import "../../styles/styleAdmin/dashboard.css";
 import Nav_Main from "../../components/component_admin/Nav_Main";
 import Nav_Right from "../../components/component_admin/Nav_Right";
-import { setCheckAdmin } from "../../util";
+import { getAdminPage, setCheckAdmin } from "../../util";
 import Manager_User from "../../components/component_admin/Manager_User";
 import { useDispatch } from "react-redux";
 import { getAdmin } from "../../services/accountAdmin.service";
@@ -22,6 +22,8 @@ import AdminCourse from "@/components/component_admin/adminCourse";
 const Dashboard: React.FC = () => {
   const [showMain, setShowMain] = useState<string>("dashboard");
   const [activeItem, setActiveItem] = useState<string>("dashboard");
+  const route = useRouter();
+
   // Active
   const toggleSidebar = (show: boolean): void => {
     const sideMenu = document.querySelector("aside");
@@ -33,8 +35,6 @@ const Dashboard: React.FC = () => {
   // Logout
 
   const dispatch = useDispatch();
-
-  const route = useRouter();
 
   useEffect(() => {
     dispatch(getAdmin());
@@ -49,6 +49,18 @@ const Dashboard: React.FC = () => {
     setShowMain(item);
     setActiveItem(item);
   };
+
+  // Chuyển hướng đến trang đăng nhập nếu chưa đăng nhập
+  useEffect(() => {
+    if (
+      !getAdminPage ||
+      (Array.isArray(getAdminPage) && getAdminPage.length === 0)
+    ) {
+      route.push("/loginAdmin");
+    } else {
+      return;
+    }
+  }, []);
 
   return (
     <>

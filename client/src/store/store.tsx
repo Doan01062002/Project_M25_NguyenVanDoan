@@ -6,6 +6,7 @@ import subjectReducer from "./reducerAccount/subjectReducer";
 import examReducer from "./reducerAccount/examReducer";
 import questionReducer from "./reducerAccount/questionReducer";
 import historyReducer from "./reducerAccount/historyReducer";
+import feedbackSlice from "./reducerAccount/feedbackSlice";
 
 const store: any = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ const store: any = configureStore({
     exams: examReducer,
     questions: questionReducer,
     historys: historyReducer,
+    feedback: feedbackSlice,
   },
 });
 

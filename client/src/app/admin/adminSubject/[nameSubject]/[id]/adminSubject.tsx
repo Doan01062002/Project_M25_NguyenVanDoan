@@ -330,16 +330,14 @@ export default function AdminSubject() {
 
         <div className="table-wrapper">
           <div className="title">
-            <h3 className="main-title">Bảng quản lí môn thi của {course}</h3>{" "}
+            <h3 className="main-title">Bảng quản lí môn thi của</h3>{" "}
           </div>
           <br />
           <div className="table-container">
             <table>
               <thead>
                 <tr>
-                  <th>
-                    <input type="checkbox" />
-                  </th>
+                  <th>STT</th>
                   <th>Tên môn học</th>
                   <th>Ngày tạo</th>
                   <th>Mô tả</th>
@@ -347,11 +345,9 @@ export default function AdminSubject() {
                 </tr>
               </thead>
               <tbody>
-                {subjectState.map((subject: Subject) => (
+                {subjectState.map((subject: Subject, index: number) => (
                   <tr key={subject.id}>
-                    <td>
-                      <input type="checkbox" />
-                    </td>
+                    <td>{index + 1}</td>
                     <td style={{ cursor: "pointer" }}>
                       <p onClick={() => handleTab(subject.id, subject)}>
                         {subject.nameSubject}

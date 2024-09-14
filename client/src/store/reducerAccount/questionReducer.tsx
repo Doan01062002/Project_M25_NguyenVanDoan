@@ -13,7 +13,7 @@ const quesState: Question[] = [];
 const quesReducer = createSlice({
   name: "ques",
   initialState: {
-    total: 0, // Số lượng question tổng cộng
+    total: 0, // Total number of questions
     ques: quesState,
   },
   reducers: {},

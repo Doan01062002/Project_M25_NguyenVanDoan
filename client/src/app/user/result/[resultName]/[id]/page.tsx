@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 import { getAllQues } from "@/services/question.service";
 import { Question } from "@/interface/admin";
 import { useParams, useRouter } from "next/navigation";
+import { addFeedback } from "@/services/feedback.service";
+import { format } from "date-fns";
 
 export default function Result() {
   const answer = JSON.parse(localStorage.getItem("answers") || "[]");
@@ -16,6 +18,12 @@ export default function Result() {
   const dispatch = useDispatch();
   const [correctAnswers, setCorrectAnswers] = useState<string[]>([]);
   const [score, setScore] = useState<number>(0);
+  const [isReviewFormOpen, setIsReviewFormOpen] = useState<boolean>(false);
+  const [showSuccessNotification, setShowSuccessNotification] =
+    useState<boolean>(false); // New state for notification
+  const account = JSON.parse(localStorage.getItem("account") || "[]");
+  const idCourse = JSON.parse(localStorage.getItem("idCourse") || "[]");
+  const idSubject = JSON.parse(localStorage.getItem("idSubject") || "[]");
 
   useEffect(() => {
     if (id) {
@@ -28,7 +36,6 @@ export default function Result() {
       const correctAns = quesState.map((ques: Question) => ques.answer);
       setCorrectAnswers(correctAns);
 
-      // Tính toán điểm
       let correctCount = 0;
       correctAns.forEach((ans: any, index: number) => {
         if (ans === answer[index]) {
@@ -37,16 +44,10 @@ export default function Result() {
       });
       setScore(correctCount);
 
-      // Lưu điểm vào localStorage sau khi tính toán
       const finalScore = (correctCount * 10) / quesState.length;
       localStorage.setItem("score", JSON.stringify(finalScore));
     }
   }, [quesState, answer]);
-
-  // localStorage.setItem(
-  //   "score",
-  //   JSON.stringify((score * 10) / quesState.length)
-  // );
 
   const handlePrevExam = () => {
     router.push("/");
@@ -59,6 +60,42 @@ export default function Result() {
       2,
       "0"
     )}`;
+  };
+
+  const handleReviewClick = () => {
+    setIsReviewFormOpen(true);
+  };
+
+  const handleFormSubmit = async (e: any) => {
+    e.preventDefault();
+    const reviewText = (e.target.elements.review as HTMLTextAreaElement).value;
+    const ratingValue = parseInt(
+      (e.target.elements.rating as HTMLSelectElement).value
+    );
+
+    const newFeedback = {
+      idUser: account.id,
+      idExam: Number(id),
+      idCourse: idCourse,
+      idSubject: idSubject,
+      review: reviewText,
+      rating: ratingValue,
+      date: format(new Date(), "dd/MM/yyyy"),
+    };
+
+    try {
+      // Gửi thông tin phản hồi đến API
+      await dispatch(addFeedback(newFeedback));
+      setIsReviewFormOpen(false); // Đóng form sau khi gửi phản hồi
+      setShowSuccessNotification(true); // Hiển thị thông báo thành công
+      setTimeout(() => setShowSuccessNotification(false), 3000); // Ẩn thông báo sau 3 giây
+    } catch (error) {
+      console.error("Failed to submit feedback:", error);
+    }
+  };
+
+  const handleCloseModal = () => {
+    setIsReviewFormOpen(false);
   };
 
   return (
@@ -112,11 +149,12 @@ export default function Result() {
             >
               Trở về trang chủ <i className="fas fa-undo-alt ml-2"></i>
             </button>
-            <a href="./Subjects.html">
-              <button className="bg-blue-500 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-600 transition duration-300">
-                Bài tiếp theo <i className="fas fa-forward ml-2"></i>
-              </button>
-            </a>
+            <button
+              onClick={handleReviewClick}
+              className="bg-blue-500 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-600 transition duration-300"
+            >
+              Đánh giá đề thi <i className="fas fa-forward ml-2"></i>
+            </button>
           </div>
         </div>
         {/* Answer Review */}
@@ -155,6 +193,71 @@ export default function Result() {
             </div>
           ))}
         </div>
+        {/* Review Form Modal */}
+        {isReviewFormOpen && (
+          <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white p-6 rounded-lg shadow-lg max-w-lg w-full">
+              <h2 className="text-xl font-semibold mb-4">Đánh giá đề thi</h2>
+              <form onSubmit={handleFormSubmit}>
+                <div className="mb-4">
+                  <label
+                    htmlFor="review"
+                    className="block text-gray-700 font-medium mb-2"
+                  >
+                    Đánh giá của bạn:
+                  </label>
+                  <textarea
+                    id="review"
+                    rows={4}
+                    className="w-full p-2 border border-gray-300 rounded-lg"
+                    placeholder="Nhập đánh giá của bạn..."
+                  />
+                </div>
+                <div className="mb-4">
+                  <label
+                    htmlFor="rating"
+                    className="block text-gray-700 font-medium mb-2"
+                  >
+                    Chọn số sao:
+                  </label>
+                  <select
+                    id="rating"
+                    className="w-full p-2 border border-gray-300 rounded-lg"
+                  >
+                    <option value="5">5 sao</option>
+                    <option value="4">4 sao</option>
+                    <option value="3">3 sao</option>
+                    <option value="2">2 sao</option>
+                    <option value="1">1 sao</option>
+                  </select>
+                </div>
+                <div className="flex justify-between">
+                  {/* Close Button */}
+                  <button
+                    type="button"
+                    onClick={handleCloseModal}
+                    className="bg-gray-500 text-white px-4 py-2 rounded-lg shadow hover:bg-gray-600 transition duration-300"
+                  >
+                    Đóng
+                  </button>
+                  {/* Submit Button */}
+                  <button
+                    type="submit"
+                    className="bg-blue-500 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-600 transition duration-300"
+                  >
+                    Gửi đánh giá
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
+        {/* Success Notification */}
+        {showSuccessNotification && (
+          <div className="fixed top-4 right-4 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg">
+            Đánh giá của bạn đã được gửi thành công!
+          </div>
+        )}
       </section>
       <Footer />
     </div>

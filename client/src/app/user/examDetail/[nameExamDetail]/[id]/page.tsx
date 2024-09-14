@@ -7,16 +7,20 @@ import { getExamById } from "@/services/exam.service";
 import { Exam } from "@/interface/admin";
 import { getAllQues } from "@/services/question.service";
 import { useParams, useRouter } from "next/navigation";
+import { getAllUser } from "@/services/user.service";
 
 export default function ExamDetail() {
-  const [account, setAccount] = useState(
-    JSON.parse(localStorage.getItem("account") || "null")
-  );
   const { id }: { id: any } = useParams();
   const examDetail = useSelector((state: any) => state.exams.examDetail);
   const quesState = useSelector((state: any) => state.questions.ques);
   const dispatch = useDispatch();
   const router = useRouter();
+
+  const users = useSelector((state: any) => state.users.user);
+
+  useEffect(() => {
+    dispatch(getAllUser());
+  }, [dispatch]);
 
   useEffect(() => {
     if (id) {
@@ -26,11 +30,15 @@ export default function ExamDetail() {
   }, [dispatch, id]);
 
   const handleClick = (id: number, exam: Exam) => {
-    if (account) {
+    const account = JSON.parse(localStorage.getItem("account") || "null");
+    const checkUsername = users.find((item: any) => item.name === account.name);
+    if (checkUsername.status === 1) {
+      alert("Tài khoản của bạn đã bị khoá");
+      localStorage.removeItem("checkUser");
+      router.push("/loginPage");
+    } else {
       const encodedNameLesson = encodeURIComponent(exam.nameLesson);
       router.push(`/user/question/${encodedNameLesson}/${id}`);
-    } else {
-      router.push("/loginPage");
     }
   };
 
